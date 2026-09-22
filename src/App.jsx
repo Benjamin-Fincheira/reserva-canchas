@@ -5,6 +5,7 @@ import { TarjetaCancha } from "./Componentes/TarjetasCancha";
 import { DetalleModal } from "./Componentes/Detalle";
 import { Carrito } from "./Componentes/Carrito";
 import { CalendarioReserva } from "./Componentes/CalendarioReserva";
+import './index.css'
 
 const datosIniciales = [
   {
@@ -27,7 +28,7 @@ const datosIniciales = [
   },
   {
     id: 3,
-    nombre: "Cancha Futbol 5",
+    nombre: "Cancha Futbol 5 (Techada)",
     deporte: "Futbolito",
     precioHora: 22000,
     superficie: "Pasto Sintético Techado",
@@ -36,7 +37,7 @@ const datosIniciales = [
   },
   {
     id: 4,
-    nombre: "Cancha Tenis 1",
+    nombre: "Cancha Tenis ",
     deporte: "Tenis",
     precioHora: 18000,
     superficie: "Arcilla",
@@ -45,7 +46,7 @@ const datosIniciales = [
   },
   {
     id: 5,
-    nombre: "Cancha Pádel 1",
+    nombre: "Cancha Pádel ",
     deporte: "Pádel",
     precioHora: 20000,
     superficie: "Césped Sintético con Vidrio Templado",
@@ -84,7 +85,7 @@ export function App() {
     // Al pagar, pasamos las reservas pendientes a la lista de pagadas
     setReservasPagadas((prev) => [...prev, ...reservas]);
     
-    alert("🎉 ¡Pago realizado y reserva confirmada con éxito! Te esperamos.");
+    alert(" ¡Pago realizado y reserva confirmada con éxito! Te esperamos.");
     
     // Limpiamos el carrito temporal
     setReservas([]);
@@ -113,9 +114,6 @@ export function App() {
         <h1 style={{ textAlign: "center", color: "#0f172a", marginBottom: "0.5rem", fontSize: "2rem", fontWeight: "800" }}>
           Reserva tu Cancha
         </h1>
-        <p style={{ textAlign: "center", color: "#64748b", margin: "0 0 1.5rem 0", fontSize: "1rem" }}>
-          Filtra por precio o deporte y agenda tu espacio en pocos clics
-        </p>
 
         <Carrito 
           verCarrito={verCarrito}

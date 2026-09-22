@@ -23,7 +23,7 @@ export function FiltroCanchas({
       flexDirection: "column",//vertical
       gap: "1.25rem"
     }}>
-      {/* Búsqueda por Nombre y Rango de Precio */}
+      {/* Busqueda por Nombre y Rango de Precio */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",

@@ -9,7 +9,7 @@ export function Navbar({ totalReservas, onAbrirCarrito }) {// un numero y una fu
       padding: "1rem 2rem", //relleno interno
       backgroundColor: "#0f172a",//azul oscuro, barra de navegacion
       color: "white",
-      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"//sombra muy sutil en el inferior de la barra
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.6)"//sombra muy sutil en el inferior de la barra
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
         <span style={{ fontSize: "1.5rem" }}>⚽</span>
