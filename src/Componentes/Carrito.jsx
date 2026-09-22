@@ -31,7 +31,6 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
         boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
         overflow: "hidden"
       }}>
-        {/* Encabezado */}
         <div style={{
           padding: "1.25rem",
           backgroundColor: "#0f172a",

@@ -23,7 +23,7 @@ export function FiltroCanchas({
       flexDirection: "column",
       gap: "1.25rem"
     }}>
-      {/* Contenedor Superior: Búsqueda por Nombre y Rango de Precio */}
+      {/* Búsqueda por Nombre y Rango de Precio */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
@@ -33,7 +33,7 @@ export function FiltroCanchas({
         {/* Input de Texto */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
           <label style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569" }}>
-            🔍 Buscar cancha
+             Buscar cancha
           </label>
           <input
             type="text"

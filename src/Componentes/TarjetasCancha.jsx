@@ -58,7 +58,7 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
               cursor: "pointer"
             }}
           >
-            Ver Detalle
+            Ver Detalles
           </button>
           <button 
             onClick={() => onReservar(cancha)}

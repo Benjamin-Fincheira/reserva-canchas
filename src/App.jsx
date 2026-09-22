@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navbar } from "./Componentes/Navbar";
 import { FiltroCanchas } from "./Componentes/FiltroCanchas";
 import { TarjetaCancha } from "./Componentes/TarjetasCancha";
@@ -19,7 +19,7 @@ const datosIniciales = [
     id: 2,
     nombre: "Cancha Futbol 7 (Techada)",
     deporte: "Futbolito",
-    precioHora: 45000,
+    precioHora: 30000,
     superficie: "Pasto Sintético",
     capacidad: "14 jugadores",
     imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=600&q=80"
@@ -54,25 +54,13 @@ const datosIniciales = [
 ];
 
 export function App() {
-  const [canchas, setCanchas] = useState([]);
-  const [cargando, setCargando] = useState(true);
+  const [canchas, setCanchas] = useState(datosIniciales);
   const [deporteSeleccionado, setDeporteSeleccionado] = useState("Todos");
   const [busqueda, setBusqueda] = useState("");
-  const [precioMax, setPrecioMax] = useState(50000);
+  const [precioMax, setPrecioMax] = useState(35000);
   const [canchaModal, setCanchaModal] = useState(null);
   const [reservas, setReservas] = useState([]);
   const [verCarrito, setVerCarrito] = useState(false);
-
-  useEffect(() => {
-    const obtenerCanchas = () => {
-      setTimeout(() => {
-        setCanchas(datosIniciales);
-        setCargando(false);
-      }, 800);
-    };
-
-    obtenerCanchas();
-  }, []);
 
   const agregarReserva = (cancha) => {
     setReservas([...reservas, cancha]);
@@ -113,7 +101,6 @@ export function App() {
           Filtra por precio o deporte y agenda tu espacio en pocos clics
         </p>
 
-        {/* Componente Carrito de Reservas */}
         <Carrito 
           verCarrito={verCarrito}
           setVerCarrito={setVerCarrito}
@@ -131,11 +118,7 @@ export function App() {
           setPrecioMax={setPrecioMax}
         />
         
-        {cargando ? (
-          <div style={{ textAlign: "center", padding: "4rem", fontSize: "1.1rem", color: "#64748b", fontWeight: "500" }}>
-            Cargando disponibilidad de canchas...
-          </div>
-        ) : canchasFiltradas.length === 0 ? (
+        {canchasFiltradas.length === 0 ? (
           <div style={{ textAlign: "center", padding: "3rem", color: "#64748b", backgroundColor: "#ffffff", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
              No se encontraron canchas que coincidan con los filtros seleccionados.
           </div>

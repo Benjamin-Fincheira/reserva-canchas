@@ -51,9 +51,9 @@ export function DetalleModal({ cancha, onClose }) {
           <h2 style={{ margin: "0 0 1rem 0", color: "#0f172a", fontSize: "1.35rem" }}>{cancha.nombre}</h2>
           
           <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "1.5rem", color: "#334155", fontSize: "0.95rem" }}>
-            <p style={{ margin: 0 }}><strong> Superficie:</strong> {cancha.superficie}</p>
-            <p style={{ margin: 0 }}><strong> Capacidad:</strong> {cancha.capacidad}</p>
-            <p style={{ margin: 0 }}><strong> Valor:</strong> <span style={{ color: "#16a34a", fontWeight: "700" }}>${cancha.precioHora.toLocaleString()} / hora</span></p>
+            <p style={{ margin: 0 }}><strong> Superficie: </strong> {cancha.superficie}</p>
+            <p style={{ margin: 0 }}><strong> Capacidad: </strong> {cancha.capacidad}</p>
+            <p style={{ margin: 0 }}><strong> Valor: </strong> <span style={{ color: "#16a34a", fontWeight: "700" }}>${cancha.precioHora.toLocaleString()} / hora</span></p>
           </div>
 
           <button 
