@@ -7,20 +7,20 @@ export function FiltroCanchas({
   setBusqueda,
   precioMax,
   setPrecioMax,
-  limitePrecioMax = 50000
-}) {
+  limitePrecioMax = 35000
+}) {//precios y datos por defectos definidos
   const deportes = ["Todos", "Futbolito", "Tenis", "Pádel"];
 
   return (
     <div style={{
-      backgroundColor: "#ffffff",
+      backgroundColor: "#ffffff",//blanco
       padding: "1.5rem",
       borderRadius: "16px",
-      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)",
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)",//pequeña sombra
       border: "1px solid #e2e8f0",
       margin: "1.5rem 0",
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "column",//vertical
       gap: "1.25rem"
     }}>
       {/* Búsqueda por Nombre y Rango de Precio */}
@@ -37,9 +37,9 @@ export function FiltroCanchas({
           </label>
           <input
             type="text"
-            placeholder="Ej: Futbol 7, Tenis..."
+            placeholder="Ej: Futbol 7, Tenis..."//texto antes de escribir
             value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
+            onChange={(e) => setBusqueda(e.target.value)}//cada vez que cambia algo envia el resultado por setbusqueda
             style={{
               width: "100%",
               padding: "0.65rem 0.9rem",
@@ -47,7 +47,7 @@ export function FiltroCanchas({
               border: "1px solid #cbd5e1",
               fontSize: "0.9rem",
               outline: "none",
-              boxSizing: "border-box"
+              boxSizing: "border-box"//para no desbordar el contenedor
             }}
           />
         </div>
@@ -66,10 +66,10 @@ export function FiltroCanchas({
             type="range"
             min="15000"
             max={limitePrecioMax}
-            step="100"
+            step="1000" //escalones o saltos de 1000 en 1000
             value={precioMax}
-            onChange={(e) => setPrecioMax(Number(e.target.value))}
-            style={{ width: "100%", cursor: "pointer", accentColor: "#2563eb" }}
+            onChange={(e) => setPrecioMax(Number(e.target.value))}//al cambiar el valor lo envia por setpreciomax transformado en un numero
+            style={{ width: "100%", cursor: "pointer", accentColor: "#2563eb" }}//cambia cursor y acentua el color azul de la barra
           />
         </div>
       </div>

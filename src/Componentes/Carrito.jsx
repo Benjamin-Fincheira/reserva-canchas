@@ -31,6 +31,7 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
         boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
         overflow: "hidden"
       }}>
+        {/* Encabezado */}
         <div style={{
           padding: "1.25rem",
           backgroundColor: "#0f172a",
@@ -43,6 +44,7 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
             🛒 Tus Reservas ({reservas.length})
           </h3>
           <button 
+            type="button"
             onClick={() => setVerCarrito(false)}
             style={{
               background: "none",
@@ -67,12 +69,12 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
               {reservas.map((cancha, index) => (
                 <div 
-                  key={`${cancha.id}-${index}`}
+                  key={`${cancha.id}-${cancha.fechaClave}-${cancha.hora}-${index}`}
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "0.75rem",
+                    padding: "0.85rem",
                     borderRadius: "10px",
                     backgroundColor: "#f8fafc",
                     border: "1px solid #e2e8f0"
@@ -82,12 +84,15 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
                     <img 
                       src={cancha.imagen} 
                       alt={cancha.nombre} 
-                      style={{ width: "50px", height: "50px", borderRadius: "8px", objectFit: "cover" }} 
+                      style={{ width: "55px", height: "55px", borderRadius: "8px", objectFit: "cover" }} 
                     />
                     <div>
-                      <h4 style={{ margin: "0 0 0.25rem 0", fontSize: "0.95rem", color: "#0f172a" }}>
+                      <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "0.95rem", color: "#0f172a" }}>
                         {cancha.nombre}
                       </h4>
+                      <p style={{ margin: "0 0 0.2rem 0", fontSize: "0.8rem", color: "#2563eb", fontWeight: "600" }}>
+                        📅 {cancha.fechaTexto} - ⏰ {cancha.hora} hrs
+                      </p>
                       <span style={{ fontSize: "0.85rem", color: "#16a34a", fontWeight: "700" }}>
                         ${cancha.precioHora.toLocaleString()} / hora
                       </span>
@@ -95,6 +100,7 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
                   </div>
 
                   <button
+                    type="button"
                     onClick={() => eliminarReserva(index)}
                     style={{
                       backgroundColor: "#fee2e2",
@@ -115,7 +121,7 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
           )}
         </div>
 
-        {/* Footer con Pago y Confirmación */}
+        {/* Footer con Pago */}
         {reservas.length > 0 && (
           <div style={{
             padding: "1.25rem",
@@ -132,6 +138,7 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
               </p>
             </div>
             <button
+              type="button"
               onClick={finalizarReserva}
               style={{
                 backgroundColor: "#16a34a",

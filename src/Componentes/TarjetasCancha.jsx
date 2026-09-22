@@ -5,7 +5,7 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
     <div style={{
       borderRadius: "16px",
       overflow: "hidden",
-      backgroundColor: "#ffffff",
+      backgroundColor: "#ffffff",//blanco
       boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)",
       border: "1px solid #f1f5f9",
       display: "flex",
@@ -14,9 +14,9 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
     }}>
       <div style={{ position: "relative", height: "190px" }}>
         <img 
-          src={cancha.imagen} 
+          src={cancha.imagen} //inserta imagenes desde url
           alt={cancha.nombre} 
-          style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+          style={{ width: "100%", height: "100%", objectFit: "cover" }} //llena todo el contenedor con la imagen
         />
         <span style={{
           position: "absolute",
