@@ -1,15 +1,111 @@
 import React from "react";
 
-export function FiltroCanchas({ setDeporteSeleccionado }) {
+export function FiltroCanchas({ 
+  deporteSeleccionado = "Todos", 
+  setDeporteSeleccionado,
+  busqueda = "",
+  setBusqueda,
+  precioMax,
+  setPrecioMax,
+  limitePrecioMax = 50000
+}) {
   const deportes = ["Todos", "Futbolito", "Tenis", "Pádel"];
 
   return (
-    <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", margin: "1rem 0" }}>
-      {deportes.map((dep) => (
-        <button key={dep} onClick={() => setDeporteSeleccionado(dep)}>
-          {dep}
-        </button>
-      ))}
+    <div style={{
+      backgroundColor: "#ffffff",
+      padding: "1.5rem",
+      borderRadius: "16px",
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)",
+      border: "1px solid #e2e8f0",
+      margin: "1.5rem 0",
+      display: "flex",
+      flexDirection: "column",
+      gap: "1.25rem"
+    }}>
+      {/* Contenedor Superior: Búsqueda por Nombre y Rango de Precio */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+        gap: "1.25rem",
+        alignItems: "center"
+      }}>
+        {/* Input de Texto */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+          <label style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569" }}>
+            🔍 Buscar cancha
+          </label>
+          <input
+            type="text"
+            placeholder="Ej: Futbol 7, Tenis..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "0.65rem 0.9rem",
+              borderRadius: "10px",
+              border: "1px solid #cbd5e1",
+              fontSize: "0.9rem",
+              outline: "none",
+              boxSizing: "border-box"
+            }}
+          />
+        </div>
+
+        {/* Control Deslizante de Precio */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <label style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569" }}>
+               Precio máximo por hora:
+            </label>
+            <span style={{ fontSize: "0.9rem", fontWeight: "700", color: "#16a34a" }}>
+              ${precioMax.toLocaleString()}
+            </span>
+          </div>
+          <input
+            type="range"
+            min="15000"
+            max={limitePrecioMax}
+            step="100"
+            value={precioMax}
+            onChange={(e) => setPrecioMax(Number(e.target.value))}
+            style={{ width: "100%", cursor: "pointer", accentColor: "#2563eb" }}
+          />
+        </div>
+      </div>
+
+      {/* Botones de Filtro por Deporte */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        <span style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569", textAlign: "center" }}>
+          Deporte:
+        </span>
+        <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
+          {deportes.map((dep) => {
+            const activo = deporteSeleccionado === dep;
+            return (
+              <button
+                key={dep}
+                type="button"
+                onClick={() => setDeporteSeleccionado && setDeporteSeleccionado(dep)}
+                style={{
+                  padding: "0.45rem 1.1rem",
+                  borderRadius: "9999px",
+                  border: activo ? "none" : "1px solid #cbd5e1",
+                  backgroundColor: activo ? "#2563eb" : "#f8fafc",
+                  color: activo ? "#ffffff" : "#475569",
+                  fontWeight: activo ? "600" : "500",
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  boxShadow: activo ? "0 4px 6px -1px rgba(37, 99, 235, 0.3)" : "none",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                {dep}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
