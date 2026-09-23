@@ -5,41 +5,41 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
     <div style={{
       borderRadius: "16px",
       overflow: "hidden",
-      backgroundColor: "#ffffff",//blanco
-      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)",
-      border: "1px solid #f1f5f9",
+      backgroundColor: "#ffffff",
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+      border: "1px solid rgba(255, 255, 255, 0.8)",
       display: "flex",
       flexDirection: "column",
       position: "relative"
     }}>
       <div style={{ position: "relative", height: "190px" }}>
         <img 
-          src={cancha.imagen} //inserta imagenes desde url
+          src={cancha.imagen} 
           alt={cancha.nombre} 
-          style={{ width: "100%", height: "100%", objectFit: "cover" }} //llena todo el contenedor con la imagen
+          style={{ width: "100%", height: "100%", objectFit: "cover" }} 
         />
         <span style={{
           position: "absolute",
           top: "12px",
           right: "12px",
-          backgroundColor: "rgba(15, 23, 42, 0.75)",
+          backgroundColor: "rgba(15, 23, 42, 0.85)",
           backdropFilter: "blur(4px)",
           color: "#ffffff",
           padding: "0.25rem 0.75rem",
           borderRadius: "9999px",
           fontSize: "0.75rem",
-          fontWeight: "600"
+          fontWeight: "700"
         }}>
           {cancha.deporte}
         </span>
       </div>
 
       <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", flexGrow: 1 }}>
-        <h3 style={{ margin: "0 0 0.5rem 0", color: "#0f172a", fontSize: "1.1rem", fontWeight: "700" }}>
+        <h3 style={{ margin: "0 0 0.5rem 0", color: "#0f172a", fontSize: "1.1rem", fontWeight: "800" }}>
           {cancha.nombre}
         </h3>
         
-        <p style={{ margin: "0 0 1.25rem 0", color: "#16a34a", fontSize: "1.15rem", fontWeight: "700" }}>
+        <p style={{ margin: "0 0 1.25rem 0", color: "#15803d", fontSize: "1.15rem", fontWeight: "800" }}>
           ${cancha.precioHora.toLocaleString()} <span style={{ fontSize: "0.85rem", color: "#64748b", fontWeight: "400" }}>/ hora</span>
         </p>
         
@@ -67,12 +67,12 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
               padding: "0.6rem",
               borderRadius: "8px",
               border: "none",
-              backgroundColor: "#2563eb",
+              backgroundColor: "#15803d",
               color: "#ffffff",
-              fontWeight: "600",
+              fontWeight: "700",
               fontSize: "0.875rem",
               cursor: "pointer",
-              boxShadow: "0 4px 6px -1px rgba(37, 99, 235, 0.2)"
+              boxShadow: "0 4px 10px rgba(21, 128, 61, 0.3)"
             }}
           >
             Reservar
