@@ -8,38 +8,37 @@ export function FiltroCanchas({
   precioMax,
   setPrecioMax,
   limitePrecioMax = 35000
-}) {//precios y datos por defectos definidos
+}) {
   const deportes = ["Todos", "Futbolito", "Tenis", "Pádel"];
 
   return (
     <div style={{
-      backgroundColor: "#ffffff",//blanco
+      backgroundColor: "rgba(255, 255, 255, 0.95)",
+      backdropFilter: "blur(12px)",
       padding: "1.5rem",
-      borderRadius: "16px",
-      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)",//pequeña sombra
-      border: "1px solid #e2e8f0",
+      borderRadius: "20px",
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+      border: "1px solid rgba(255, 255, 255, 0.6)",
       margin: "1.5rem 0",
       display: "flex",
-      flexDirection: "column",//vertical
+      flexDirection: "column",
       gap: "1.25rem"
     }}>
-      {/* Busqueda por Nombre y Rango de Precio */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
         gap: "1.25rem",
         alignItems: "center"
       }}>
-        {/* Input de Texto */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-          <label style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569" }}>
+          <label style={{ fontSize: "0.85rem", fontWeight: "700", color: "#0f172a" }}>
              Buscar cancha
           </label>
           <input
             type="text"
-            placeholder="Ej: Futbol 7, Tenis..."//texto antes de escribir
+            placeholder="Ej: Futbol 7, Tenis..."
             value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}//cada vez que cambia algo envia el resultado por setbusqueda
+            onChange={(e) => setBusqueda(e.target.value)}
             style={{
               width: "100%",
               padding: "0.65rem 0.9rem",
@@ -47,18 +46,18 @@ export function FiltroCanchas({
               border: "1px solid #cbd5e1",
               fontSize: "0.9rem",
               outline: "none",
-              boxSizing: "border-box"//para no desbordar el contenedor
+              boxSizing: "border-box",
+              backgroundColor: "#ffffff"
             }}
           />
         </div>
 
-        {/* Control Deslizante de Precio */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <label style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569" }}>
+            <label style={{ fontSize: "0.85rem", fontWeight: "700", color: "#0f172a" }}>
                Precio máximo por hora:
             </label>
-            <span style={{ fontSize: "0.9rem", fontWeight: "700", color: "#16a34a" }}>
+            <span style={{ fontSize: "0.95rem", fontWeight: "800", color: "#15803d" }}>
               ${precioMax.toLocaleString()}
             </span>
           </div>
@@ -66,17 +65,16 @@ export function FiltroCanchas({
             type="range"
             min="15000"
             max={limitePrecioMax}
-            step="1000" //escalones o saltos de 1000 en 1000
+            step="1000"
             value={precioMax}
-            onChange={(e) => setPrecioMax(Number(e.target.value))}//al cambiar el valor lo envia por setpreciomax transformado en un numero
-            style={{ width: "100%", cursor: "pointer", accentColor: "#2563eb" }}//cambia cursor y acentua el color azul de la barra
+            onChange={(e) => setPrecioMax(Number(e.target.value))}
+            style={{ width: "100%", cursor: "pointer", accentColor: "#15803d" }}
           />
         </div>
       </div>
 
-      {/* Botones de Filtro por Deporte */}
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <span style={{ fontSize: "0.85rem", fontWeight: "600", color: "#475569", textAlign: "center" }}>
+        <span style={{ fontSize: "0.85rem", fontWeight: "700", color: "#0f172a", textAlign: "center" }}>
           Deporte:
         </span>
         <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
@@ -91,12 +89,12 @@ export function FiltroCanchas({
                   padding: "0.45rem 1.1rem",
                   borderRadius: "9999px",
                   border: activo ? "none" : "1px solid #cbd5e1",
-                  backgroundColor: activo ? "#2563eb" : "#f8fafc",
-                  color: activo ? "#ffffff" : "#475569",
-                  fontWeight: activo ? "600" : "500",
+                  backgroundColor: activo ? "#15803d" : "#f8fafc",
+                  color: activo ? "#ffffff" : "#334155",
+                  fontWeight: activo ? "700" : "600",
                   fontSize: "0.85rem",
                   cursor: "pointer",
-                  boxShadow: activo ? "0 4px 6px -1px rgba(37, 99, 235, 0.3)" : "none",
+                  boxShadow: activo ? "0 4px 10px rgba(21, 128, 61, 0.35)" : "none",
                   transition: "all 0.2s ease"
                 }}
               >
