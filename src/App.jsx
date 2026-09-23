@@ -5,7 +5,7 @@ import { TarjetaCancha } from "./Componentes/TarjetasCancha";
 import { DetalleModal } from "./Componentes/Detalle";
 import { Carrito } from "./Componentes/Carrito";
 import { CalendarioReserva } from "./Componentes/CalendarioReserva";
-import './index.css'
+import './index.css';
 
 const datosIniciales = [
   {
@@ -63,12 +63,8 @@ export function App() {
   const [canchaModal, setCanchaModal] = useState(null);
   const [canchaAReservar, setCanchaAReservar] = useState(null);
   
-  // Reservas temporales que están en el carrito
   const [reservas, setReservas] = useState([]);
-  
-  // Reservas pagadas y confirmadas permanentemente
   const [reservasPagadas, setReservasPagadas] = useState([]);
-  
   const [verCarrito, setVerCarrito] = useState(false);
 
   const agregarReserva = (reservaCompleta) => {
@@ -81,13 +77,8 @@ export function App() {
 
   const finalizarReserva = () => {
     if (reservas.length === 0) return;
-    
-    // Al pagar, pasamos las reservas pendientes a la lista de pagadas
     setReservasPagadas((prev) => [...prev, ...reservas]);
-    
     alert(" ¡Pago realizado y reserva confirmada con éxito! Te esperamos.");
-    
-    // Limpiamos el carrito temporal
     setReservas([]);
     setVerCarrito(false);
   };
@@ -100,18 +91,32 @@ export function App() {
     return coincideDeporte && coincideBusqueda && coincidePrecio;
   });
 
-  // Combinar tanto lo que está en el carrito como lo pagado para bloquear horarios ocupados
   const todasLasReservasOcupadas = [...reservas, ...reservasPagadas];
 
   return (
-    <div style={{ fontFamily: "system-ui, -apple-system, sans-serif", backgroundColor: "#f8fafc", minHeight: "100vh", paddingBottom: "3rem" }}>
+    <div style={{
+      minHeight: "100vh",
+      paddingBottom: "3rem",
+      fontFamily: "system-ui, -apple-system, sans-serif",
+      backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.45)), url('https://images.unsplash.com/photo-1589487391730-58f20eb2c308?auto=format&fit=crop&w=1920&q=80')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed"
+    }}>
       <Navbar 
         totalReservas={reservas.length} 
         onAbrirCarrito={() => setVerCarrito(!verCarrito)} 
       />
       
       <main style={{ maxWidth: "1080px", margin: "0 auto", padding: "2rem 1rem" }}>
-        <h1 style={{ textAlign: "center", color: "#0f172a", marginBottom: "0.5rem", fontSize: "2rem", fontWeight: "800" }}>
+        <h1 style={{ 
+          textAlign: "center", 
+          color: "#ffffff", 
+          marginBottom: "1rem", 
+          fontSize: "2.25rem", 
+          fontWeight: "800",
+          textShadow: "0 2px 10px rgba(0,0,0,0.6)"
+        }}>
           Reserva tu Cancha
         </h1>
 
@@ -133,7 +138,15 @@ export function App() {
         />
         
         {canchasFiltradas.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "3rem", color: "#64748b", backgroundColor: "#ffffff", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
+          <div style={{ 
+            textAlign: "center", 
+            padding: "3rem", 
+            color: "#ffffff", 
+            backgroundColor: "rgba(15, 23, 42, 0.85)", 
+            borderRadius: "16px", 
+            backdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.15)"
+          }}>
             No se encontraron canchas que coincidan con los filtros seleccionados.
           </div>
         ) : (
@@ -149,10 +162,8 @@ export function App() {
           </div>
         )}
 
-        {/* Modal de Detalle */}
         <DetalleModal cancha={canchaModal} onClose={() => setCanchaModal(null)} />
 
-        {/* Modal para Seleccionar Fecha y Hora */}
         <CalendarioReserva 
           cancha={canchaAReservar}
           onClose={() => setCanchaAReservar(null)}
