@@ -3,13 +3,13 @@ import React, { useState } from "react";
 export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reservasExistentes }) {
   if (!cancha) return null;
 
-  // Generar los próximos 7 días a partir de hoy
+  // Generar los próximos 10 días dinámicamente
   const obtenerProximosDias = () => {
     const dias = [];
     const opcionesMes = { month: "long" };
     const opcionesDiaSemana = { weekday: "short" };
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 10; i++) {
       const fecha = new Date();
       fecha.setDate(fecha.getDate() + i);
 
@@ -34,14 +34,13 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
   const [diaSeleccionado, setDiaSeleccionado] = useState(proximosDias[0]);
   const [horaSeleccionada, setHoraSeleccionada] = useState(null);
 
-  // Horarios disponibles
   const horarios = [
     "10:00", "11:00", "12:00", "13:00", "14:00", 
     "15:00", "16:00", "17:00", "18:00", "19:00", 
     "20:00", "21:00", "22:00"
   ];
 
-  // Comprobar si la cancha ya está reservada a esa hora y día
+  // Comprobar si esta cancha ya tiene este día y hora en la lista de ocupadas
   const estaOcupado = (hora) => {
     return reservasExistentes.some(
       (res) => res.id === cancha.id && res.fechaClave === diaSeleccionado.fechaClave && res.hora === hora
@@ -92,10 +91,9 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
         flexDirection: "column",
         gap: "1.25rem"
       }}>
-        {/* Encabezado con cancha elegida */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <span style={{ fontSize: "0.8rem", color: "#2563eb", fontWeight: "700", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "0.8rem", color: "#15803d", fontWeight: "700", textTransform: "uppercase" }}>
               {cancha.deporte}
             </span>
             <h3 style={{ margin: 0, fontSize: "1.25rem", color: "#0f172a", fontWeight: "800" }}>
@@ -111,12 +109,11 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
           </button>
         </div>
 
-        {/* Encabezado del mes */}
         <div style={{ textAlign: "center", fontWeight: "800", color: "#1e293b", fontSize: "1rem" }}>
           {diaSeleccionado.mes}
         </div>
 
-        {/* Fila de Días */}
+        {/* Carrusel de 10 días */}
         <div style={{
           display: "flex",
           gap: "0.5rem",
@@ -138,14 +135,14 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
                   padding: "0.6rem 0.4rem",
                   borderRadius: "12px",
                   border: esSeleccionado ? "none" : "1px solid #e2e8f0",
-                  backgroundColor: esSeleccionado ? "#2e1065" : "#ffffff",
+                  backgroundColor: esSeleccionado ? "#15803d" : "#ffffff",
                   color: esSeleccionado ? "#ffffff" : "#0f172a",
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   gap: "0.2rem",
-                  boxShadow: esSeleccionado ? "0 4px 10px rgba(46, 16, 101, 0.3)" : "none"
+                  boxShadow: esSeleccionado ? "0 4px 10px rgba(21, 128, 61, 0.35)" : "none"
                 }}
               >
                 <span style={{ fontSize: "1.1rem", fontWeight: "800" }}>{dia.diaNum}</span>
@@ -159,7 +156,7 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
           Selecciona una hora disponible:
         </span>
 
-        {/* Grilla de Horarios */}
+        {/* Horarios con estado ocupado tachado */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(95px, 1fr))",
@@ -178,14 +175,14 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
                 style={{
                   padding: "0.6rem",
                   borderRadius: "10px",
-                  border: esHoraSeleccionada ? "2px solid #84cc16" : "1px solid #cbd5e1",
-                  backgroundColor: ocupado ? "#f1f5f9" : esHoraSeleccionada ? "#84cc16" : "#ffffff",
+                  border: esHoraSeleccionada ? "2px solid #15803d" : "1px solid #cbd5e1",
+                  backgroundColor: ocupado ? "#f1f5f9" : esHoraSeleccionada ? "#15803d" : "#ffffff",
                   color: ocupado ? "#94a3b8" : esHoraSeleccionada ? "#ffffff" : "#0f172a",
                   fontWeight: esHoraSeleccionada ? "800" : "600",
                   fontSize: "0.9rem",
                   cursor: ocupado ? "not-allowed" : "pointer",
                   textDecoration: ocupado ? "line-through" : "none",
-                  boxShadow: esHoraSeleccionada ? "0 2px 8px rgba(132, 204, 22, 0.4)" : "none"
+                  boxShadow: esHoraSeleccionada ? "0 2px 8px rgba(21, 128, 61, 0.4)" : "none"
                 }}
               >
                 {ocupado ? `${hora} 🚫` : hora}
@@ -194,7 +191,6 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
           })}
         </div>
 
-        {/* Botón Confirmar Reserva */}
         <button
           type="button"
           disabled={!horaSeleccionada}
@@ -205,12 +201,12 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
             padding: "0.85rem",
             borderRadius: "12px",
             border: "none",
-            backgroundColor: horaSeleccionada ? "#84cc16" : "#cbd5e1",
+            backgroundColor: horaSeleccionada ? "#15803d" : "#cbd5e1",
             color: horaSeleccionada ? "#ffffff" : "#64748b",
             fontWeight: "700",
             fontSize: "1rem",
             cursor: horaSeleccionada ? "pointer" : "not-allowed",
-            boxShadow: horaSeleccionada ? "0 4px 12px rgba(132, 204, 22, 0.4)" : "none"
+            boxShadow: horaSeleccionada ? "0 4px 12px rgba(21, 128, 61, 0.4)" : "none"
           }}
         >
           {horaSeleccionada ? `Confirmar para ${horaSeleccionada} hrs` : "Selecciona una hora"}

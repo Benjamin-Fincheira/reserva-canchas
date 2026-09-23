@@ -101,7 +101,7 @@ export function Carrito({ verCarrito, setVerCarrito, reservas, eliminarReserva, 
 
                   <button
                     type="button"
-                    onClick={() => eliminarReserva(index)}
+                    onClick={() => eliminarReserva(index)}//index: posicion numerica desde 0
                     style={{
                       backgroundColor: "#fee2e2",
                       color: "#dc2626",
