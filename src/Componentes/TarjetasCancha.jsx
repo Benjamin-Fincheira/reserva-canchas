@@ -46,6 +46,7 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
         <div style={{ display: "flex", gap: "0.5rem", marginTop: "auto" }}> 
           <button 
             onClick={() => onVerDetalle(cancha)}
+            className="btn-detalles-animado"
             style={{
               flex: 1,
               padding: "0.6rem",
@@ -62,6 +63,7 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
           </button>
           <button 
             onClick={() => onReservar(cancha)}
+            className="btn-reservar-animado"
             style={{
               flex: 1,
               padding: "0.6rem",
@@ -73,10 +75,11 @@ export function TarjetaCancha({ cancha, onVerDetalle, onReservar }) {
               fontSize: "0.875rem",
               cursor: "pointer",
               boxShadow: "0 4px 10px rgba(21, 128, 61, 0.3)"
-            }}
-          >
-            Reservar
-          </button>
+  }}
+>
+  Reservar
+</button>
+
         </div>
       </div>
     </div>
