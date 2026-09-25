@@ -11,13 +11,11 @@ html, body{
     transform: translateY(-3px); /* Eleva el boton*/
     box-shadow: 0 8px 16px rgba(21, 128, 61, 0.5) !important; /* Hace la sombra verde más profunda */
   } 
-  .btn-detalles-animado {
-    transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease, background-color 0.2s ease !important;
-  }
-  /* Efecto al pasar el cursor (Hover) */
-  .btn-detalles-animado:hover {
-    background-color: #f8fafc !important; /* Cambia a un gris/azul ultra claro */
-    transform: translateY(-3px); /* Se eleva 3 píxeles en sintonía con el botón verde */
-    box-shadow: 0 6px 14px rgba(51, 65, 85, 0.15) !important; /* Sombra suave y elegante de tono grisáceo */
-  }
+.btn-detalles-animado {
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+.btn-detalles-animado:hover {
+  transform: translateY(-3px); /* Se eleva 3 píxeles en sintonía con el botón verde */
+  box-shadow: 0 6px 14px rgba(51, 65, 85, 0.15) !important; /* Sombra suave y elegante de tono grisáceo */
+}
   

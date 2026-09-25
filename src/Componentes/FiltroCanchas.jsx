@@ -82,6 +82,7 @@ export function FiltroCanchas({
             const activo = deporteSeleccionado === dep;
             return (
               <button
+              className="btn-detalles-animado"
                 key={dep}
                 type="button"
                 onClick={() => setDeporteSeleccionado && setDeporteSeleccionado(dep)}
