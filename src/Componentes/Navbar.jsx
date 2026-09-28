@@ -36,7 +36,8 @@ export function Navbar({ totalReservas, onAbrirCarrito }) {
           cursor: "pointer"
         }}
       >
-        <span>🛒 Reservas:</span>
+        <span className="carrito-animado" style={{ display: "inline-block" }}>🛒</span>
+        <span>Reservas:</span>
         <span style={{
           backgroundColor: "#15803d",
           color: "white",

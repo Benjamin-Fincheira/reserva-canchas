@@ -19,6 +19,7 @@ html, body{
   box-shadow: 0 6px 14px rgba(51, 65, 85, 0.15) !important; /* Sombra suave y elegante de tono gris */
 }
 .balon-animado { transition: transform 0.4s ease; } .balon-animado:hover { transform: rotate(360deg) scale(1.2); }  /*ease=defina curva de velocidad de movimiento, gira en 360grad y aumenta en 20%*/
+.carrito-animado { transition: transform 0.3s ease; } button:hover .carrito-animado { transform: scale(1.25); }/*se usa el boton para que se agrande cuando el cursor este encima del boton, no exactamente del emoji*/
 .probar-colores {/*.css reconoce propiedades de diseño y activa su selector de color visual*/
   color: rgb(128, 21, 83);/*.jsx los detecta como texto de JavaScript*/
 }
