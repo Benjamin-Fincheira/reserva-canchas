@@ -56,13 +56,19 @@ const datosIniciales = [
   }
 ];
 
-// (Hoy y Mañana) para que se vayan actualizando segun el dia
+// Función utilitaria para obtener fecha local en YYYY-MM-DD sin desfase UTC
+const obtenerFechaLocalISO = (fechaObj) => {
+  const offset = fechaObj.getTimezoneOffset() * 60000;
+  return new Date(fechaObj.getTime() - offset).toISOString().split("T")[0];
+};
+
+// Genera reservas iniciales sincronizadas con las claves estandarizadas (id, fechaClave)
 const obtenerReservasBaseDinamicas = () => {
-  const hoy = new Date().toISOString().split("T")[0];//toisostring la convierte a texto y split divide en T
-  
+  const hoy = obtenerFechaLocalISO(new Date());
+
   const mananaObj = new Date();
   mananaObj.setDate(mananaObj.getDate() + 1);
-  const manana = mananaObj.toISOString().split("T")[0];
+  const manana = obtenerFechaLocalISO(mananaObj);
 
   return [
     {
@@ -90,38 +96,40 @@ export function App() {
   const [precioMax, setPrecioMax] = useState(35000);
   const [canchaModal, setCanchaModal] = useState(null);
   const [canchaAReservar, setCanchaAReservar] = useState(null);
-  // Reservas temporales en el carrito
   const [reservas, setReservas] = useState([]);
-  // Cargar reservas pagadas desde localStorage o generar las dinámicas de hoy
+
   const [reservasPagadas, setReservasPagadas] = useState(() => {
-    const guardadas = localStorage.getItem("reservas_pagadas_sportsreserve");//localstorage memoria interna del navegador
+    const guardadas = localStorage.getItem("reservas_pagadas_sportsreserve");
     if (guardadas) {
       try {
-        const parsed = JSON.parse(guardadas);//convierte texto a arreglo de javascript
-        if (parsed && parsed.length > 0) return parsed;//si no esta vacio, se asigna como reservasPagadas iniciales
-      } catch (e) {// En caso de error, retorna las por defecto
+        const parsed = JSON.parse(guardadas);
+        // Validar que los datos cargados tengan la estructura correcta
+        if (parsed && parsed.length > 0 && parsed[0].fechaClave) return parsed;
+      } catch (e) {
+        console.error("Error al parsear reservas guardadas", e);
       }
     }
-    return obtenerReservasBaseDinamicas();//si es la primera vez que se carga la pagina, solo se cargan las 3 dinamicas
+    return obtenerReservasBaseDinamicas();
   });
-  const [verCarrito, setVerCarrito] = useState(false);//comienza con el carrito sin desplegar
 
-  // Sincronizar en localStorage
-  useEffect(() => {//se actualiza cada vez que cambia de estado reservasPagadas
-    localStorage.setItem("reservas_pagadas_sportsreserve", JSON.stringify(reservasPagadas));//json.sstringify convierte reservas a texto plano para guardarlas en localstorage
+  const [verCarrito, setVerCarrito] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("reservas_pagadas_sportsreserve", JSON.stringify(reservasPagadas));
   }, [reservasPagadas]);
-  const agregarReserva = (reservaCompleta) => {//reserva completa incluye id, fecha, hora
-    setReservas((prev) => [...prev, reservaCompleta]);//actualizamos anteriores+nuevo
+
+  const agregarReserva = (reservaCompleta) => {
+    setReservas((prev) => [...prev, reservaCompleta]);
   };
 
   const eliminarReserva = (indexAEliminar) => {
-    setReservas((prev) => prev.filter((_, index) => index !== indexAEliminar));//mantiene todos menos al que queremos eliminar
+    setReservas((prev) => prev.filter((_, index) => index !== indexAEliminar));
   };
 
   const finalizarReserva = () => {
     if (reservas.length === 0) return;
     
-    setReservasPagadas((prev) => [...prev, ...reservas]);//pasa reservas del carrito a reservasPagadas
+    setReservasPagadas((prev) => [...prev, ...reservas]);
     alert("¡Pago realizado y reserva confirmada con éxito!");
     
     setReservas([]);
@@ -130,13 +138,13 @@ export function App() {
 
   const canchasFiltradas = canchas.filter((cancha) => {
     const coincideDeporte = deporteSeleccionado === "Todos" || cancha.deporte === deporteSeleccionado;
-    const coincideBusqueda = cancha.nombre.toLowerCase().includes(busqueda.toLowerCase());//incluye mayus y minus
+    const coincideBusqueda = cancha.nombre.toLowerCase().includes(busqueda.toLowerCase());
     const coincidePrecio = cancha.precioHora <= precioMax;
 
-    return coincideDeporte && coincideBusqueda && coincidePrecio;//solo devuelve las que coincidan las 3 simultaneamente
+    return coincideDeporte && coincideBusqueda && coincidePrecio;
   });
 
-  const todasLasReservasOcupadas = [...reservas, ...reservasPagadas];//junta reservas pagadas y en el carrito para marcarlas ocupadas
+  const todasLasReservasOcupadas = [...reservas, ...reservasPagadas];
 
   return (
     <div style={{
@@ -144,19 +152,19 @@ export function App() {
       paddingBottom: "3rem",
       fontFamily: "system-ui, -apple-system, sans-serif",
       backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.45)), url('https://images.unsplash.com/photo-1589487391730-58f20eb2c308?auto=format&fit=crop&w=1920&q=80')`,
-      backgroundSize: "cover",//imagen de fondo, algo oscurecida, con leve transparencia
+      backgroundSize: "cover",
       backgroundPosition: "center",
-      backgroundAttachment: "fixed"//fija al scrollear
+      backgroundAttachment: "fixed"
     }}>
       <Navbar 
         totalReservas={reservas.length} 
-        onAbrirCarrito={() => setVerCarrito(!verCarrito)} //invierte el estado del carrito al apretar en el boton
+        onAbrirCarrito={() => setVerCarrito(!verCarrito)} 
       />
       
       <main style={{ maxWidth: "1080px", margin: "0 auto", padding: "2rem 1rem" }}>
         <h1 style={{ 
           textAlign: "center", 
-          color: "#ffffff", //blanco, subtitulo
+          color: "#ffffff", 
           marginBottom: "1rem", 
           fontSize: "2.25rem", 
           fontWeight: "800",
@@ -188,7 +196,7 @@ export function App() {
             padding: "3rem", 
             color: "#ffffff", 
             backgroundColor: "rgba(15, 23, 42, 0.85)", 
-            borderRadius: "16px", // esquinas redondeadas, 0=cuadradas
+            borderRadius: "16px",
             backdropFilter: "blur(8px)",
             border: "1px solid rgba(255, 255, 255, 0.15)"
           }}>

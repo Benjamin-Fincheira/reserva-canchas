@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reservasExistentes }) {
   if (!cancha) return null;
 
-  // Generar los próximos 10 días dinámicamente
+  // Generar los próximos 10 días dinámicamente considerando zona horaria local
   const obtenerProximosDias = () => {
     const dias = [];
     const opcionesMes = { month: "long" };
@@ -17,7 +17,9 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
       const mes = fecha.toLocaleDateString("es-ES", opcionesMes).toUpperCase();
       const diaNombre = fecha.toLocaleDateString("es-ES", opcionesDiaSemana).toUpperCase().replace(".", "");
       
-      const fechaClave = fecha.toISOString().split("T")[0];
+      // Fecha en formato YYYY-MM-DD local
+      const offset = fecha.getTimezoneOffset() * 60000;
+      const fechaClave = new Date(fecha.getTime() - offset).toISOString().split("T")[0];
 
       dias.push({
         fechaClave,
@@ -40,11 +42,13 @@ export function CalendarioReserva({ cancha, onClose, onConfirmarReserva, reserva
     "20:00", "21:00", "22:00"
   ];
 
-  // Comprobar si esta cancha ya tiene este día y hora en la lista de ocupadas
+  // Comprobar compatibilidad convirtiendo los IDs a números
   const estaOcupado = (hora) => {
-    return reservasExistentes.some(
-      (res) => res.id === cancha.id && res.fechaClave === diaSeleccionado.fechaClave && res.hora === hora
-    );
+    return reservasExistentes.some((res) => {
+      const coincideCancha = Number(res.id) === Number(cancha.id) || Number(res.canchaId) === Number(cancha.id);
+      const coincideFecha = res.fechaClave === diaSeleccionado.fechaClave || res.fecha === diaSeleccionado.fechaClave;
+      return coincideCancha && coincideFecha && res.hora === hora;
+    });
   };
 
   const handleConfirmar = (e) => {
