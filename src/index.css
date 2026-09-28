@@ -5,17 +5,20 @@ html, body{
 }
 .btn-reservar-animado { 
     transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease, background-color 0.2s ease !important;/*cubir bezier agrega una aceleracion personalizada a la animacion*/
-  }/*!important hace que el navegador priorice la animacion sobre tus estilos en línea fijos*/
+  }/*!important hace que el navegador priorice la animacion*/
   .btn-reservar-animado:hover {
-    background-color: #166534 !important; /* Cambia a un verde más oscuro al pasar el cursor*/
+    background-color: #166534 !important; /* Cambia a un verde mas oscuro al pasar el cursor*/
     transform: translateY(-3px); /* Eleva el boton*/
-    box-shadow: 0 8px 16px rgba(21, 128, 61, 0.5) !important; /* Hace la sombra verde más profunda */
+    box-shadow: 0 8px 16px rgba(21, 128, 61, 0.5) !important; /* Hace la sombra verde mas profunda */
   } 
 .btn-detalles-animado {
   transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease, background-color 0.2s ease !important;
 }
-.btn-detalles-animado:hover {
-  transform: translateY(-3px); /* Se eleva 3 píxeles en sintonía con el botón verde */
-  box-shadow: 0 6px 14px rgba(51, 65, 85, 0.15) !important; /* Sombra suave y elegante de tono grisáceo */
+.btn-detalles-animado:hover {/*hover, defina que sea solo cuando se pasa el cursor por encima*/
+  transform: translateY(-3px); /* Se eleva 3 pixeles */
+  box-shadow: 0 6px 14px rgba(51, 65, 85, 0.15) !important; /* Sombra suave y elegante de tono gris */
 }
-  
+.balon-animado { transition: transform 0.4s ease; } .balon-animado:hover { transform: rotate(360deg) scale(1.2); }  /*ease=defina curva de velocidad de movimiento, gira en 360grad y aumenta en 20%*/
+.probar-colores {/*.css reconoce propiedades de diseño y activa su selector de color visual*/
+  color: rgb(128, 21, 83);/*.jsx los detecta como texto de JavaScript*/
+}

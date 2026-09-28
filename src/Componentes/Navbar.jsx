@@ -14,7 +14,7 @@ export function Navbar({ totalReservas, onAbrirCarrito }) {
       borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-        <span style={{ fontSize: "1.5rem" }}>⚽</span>
+        <span className="balon-animado" style={{ fontSize: "1.5rem", display: "inline-block", cursor: "pointer" }}>⚽</span>
         <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: "800", letterSpacing: "-0.025em" }}>
           SportsReserve
         </h2>
