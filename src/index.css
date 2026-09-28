@@ -23,3 +23,4 @@ html, body{
 .probar-colores {/*.css reconoce propiedades de diseño y activa su selector de color visual*/
   color: rgb(128, 21, 83);/*.jsx los detecta como texto de JavaScript*/
 }
+.badge-resalta { transform: scale(1.4) !important; }/*aumenta en un 40%*/

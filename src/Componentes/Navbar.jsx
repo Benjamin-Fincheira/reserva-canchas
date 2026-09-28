@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export function Navbar({ totalReservas, onAbrirCarrito }) {
+  const [animarBadge, setAnimarBadge] = useState(false);
+  useEffect(() => { /*se ejecuta cada vez que 'totalReservas' cambia de valor*/
+    if (totalReservas === 0) return; // No animar en la carga inicial
+    setAnimarBadge(true);
+    const timer = setTimeout(() => {
+      setAnimarBadge(false);//vuelve a su tamaño normal
+    }, 300); // Duracion en ms
+  }, [totalReservas]);
+
   return (
     <nav style={{
       display: "flex",
@@ -38,14 +47,19 @@ export function Navbar({ totalReservas, onAbrirCarrito }) {
       >
         <span className="carrito-animado" style={{ display: "inline-block" }}>🛒</span>
         <span>Reservas:</span>
-        <span style={{
-          backgroundColor: "#15803d",
-          color: "white",
-          borderRadius: "9999px",
-          padding: "0.1rem 0.6rem",
-          fontSize: "0.85rem",
-          fontWeight: "700"
-        }}>
+        <span 
+          className={animarBadge ? "badge-resalta" : ""}// ? = Si es verdadero,   : = Si no lo es
+          style={{
+            display: "inline-block",
+            backgroundColor: "#15803d",
+            color: "white",
+            borderRadius: "9999px",
+            padding: "0.1rem 0.6rem",
+            fontSize: "0.85rem",
+            fontWeight: "700",
+            transition: "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+          }}
+        >
           {totalReservas}
         </span>
       </button>

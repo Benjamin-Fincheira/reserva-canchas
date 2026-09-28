@@ -10,8 +10,8 @@ export function DetalleModal({ cancha, onClose }) {
       left: 0,
       width: "100vw",
       height: "100vh",
-      backgroundColor: "rgba(15, 23, 42, 0.6)",
-      backdropFilter: "blur(4px)",
+      backgroundColor: "rgba(15, 23, 42, 0.6)",//oscurece el fondo un 60% a un azul oscuro
+      backdropFilter: "blur(4px)",//desenfoque al fondo
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
