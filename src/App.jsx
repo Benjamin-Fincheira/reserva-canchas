@@ -56,16 +56,14 @@ const datosIniciales = [
   }
 ];
 
-// Función utilitaria para obtener fecha local en YYYY-MM-DD sin desfase UTC
-const obtenerFechaLocalISO = (fechaObj) => {
-  const offset = fechaObj.getTimezoneOffset() * 60000;
+const obtenerFechaLocalISO = (fechaObj) => {//obtiene fecha local
+  const offset = fechaObj.getTimezoneOffset() * 60000;//calcula desfase de horario local con UTC(3 horas en miliseg, 60000)
   return new Date(fechaObj.getTime() - offset).toISOString().split("T")[0];
-};
+};//Formato seria algo como: 2026-09-29T14:18:38:123
 
 // Genera reservas iniciales sincronizadas con las claves estandarizadas (id, fechaClave)
 const obtenerReservasBaseDinamicas = () => {
   const hoy = obtenerFechaLocalISO(new Date());
-
   const mananaObj = new Date();
   mananaObj.setDate(mananaObj.getDate() + 1);
   const manana = obtenerFechaLocalISO(mananaObj);
@@ -99,12 +97,11 @@ export function App() {
   const [reservas, setReservas] = useState([]);
 
   const [reservasPagadas, setReservasPagadas] = useState(() => {
-    const guardadas = localStorage.getItem("reservas_pagadas_sportsreserve");
+    const guardadas = localStorage.getItem("reservas_pagadas_sportsreserve");//toma reservas del localstorage
     if (guardadas) {
       try {
-        const parsed = JSON.parse(guardadas);
-        // Validar que los datos cargados tengan la estructura correcta
-        if (parsed && parsed.length > 0 && parsed[0].fechaClave) return parsed;
+        const parsed = JSON.parse(guardadas);//convierte texto de formatoJSON a un arreglo/objeto 
+        if (parsed && parsed.length > 0 && parsed[0].fechaClave) return parsed;//valida que no sea un arreglo vacio y el primer elemento sea de la propiedad fechaClave
       } catch (e) {
         console.error("Error al parsear reservas guardadas", e);
       }
@@ -112,47 +109,40 @@ export function App() {
     return obtenerReservasBaseDinamicas();
   });
 
-  const [verCarrito, setVerCarrito] = useState(false);
-
+  const [verCarrito, setVerCarrito] = useState(false);//comienza cerrado el carrito
   useEffect(() => {
-    localStorage.setItem("reservas_pagadas_sportsreserve", JSON.stringify(reservasPagadas));
+    localStorage.setItem("reservas_pagadas_sportsreserve", JSON.stringify(reservasPagadas));//convierte arreglo en texto en formato JSON para luego guardarlo en localStorage
   }, [reservasPagadas]);
-
   const agregarReserva = (reservaCompleta) => {
-    setReservas((prev) => [...prev, reservaCompleta]);
+    setReservas((prev) => [...prev, reservaCompleta]);//reservas anteriores+nueva
   };
-
   const eliminarReserva = (indexAEliminar) => {
-    setReservas((prev) => prev.filter((_, index) => index !== indexAEliminar));
+    setReservas((prev) => prev.filter((_, index) => index !== indexAEliminar));//conserva todos menos el eliminado
   };
-
   const finalizarReserva = () => {
     if (reservas.length === 0) return;
-    
     setReservasPagadas((prev) => [...prev, ...reservas]);
     alert("¡Pago realizado y reserva confirmada con éxito!");
-    
     setReservas([]);
     setVerCarrito(false);
   };
 
   const canchasFiltradas = canchas.filter((cancha) => {
     const coincideDeporte = deporteSeleccionado === "Todos" || cancha.deporte === deporteSeleccionado;
-    const coincideBusqueda = cancha.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    const coincideBusqueda = cancha.nombre.toLowerCase().includes(busqueda.toLowerCase());//todo a minus
     const coincidePrecio = cancha.precioHora <= precioMax;
 
     return coincideDeporte && coincideBusqueda && coincidePrecio;
-  });
-
+  });//retorna true solo si se cumple las 3 condiciones
   const todasLasReservasOcupadas = [...reservas, ...reservasPagadas];
-
+//reservas temporales (carrito)+ pagadas
   return (
     <div style={{
       minHeight: "100vh",
       paddingBottom: "3rem",
       fontFamily: "system-ui, -apple-system, sans-serif",
       backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.45)), url('https://images.unsplash.com/photo-1589487391730-58f20eb2c308?auto=format&fit=crop&w=1920&q=80')`,
-      backgroundSize: "cover",
+      backgroundSize: "cover",//imagen de fondo
       backgroundPosition: "center",
       backgroundAttachment: "fixed"
     }}>
@@ -202,7 +192,7 @@ export function App() {
           }}>
             No se encontraron canchas que coincidan con los filtros seleccionados.
           </div>
-        ) : (
+        ) : (//cuando si hay canchas con los filtros seleccionados
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.75rem", marginTop: "2rem" }}>
             {canchasFiltradas.map((cancha) => (
               <TarjetaCancha
@@ -216,7 +206,6 @@ export function App() {
         )}
 
         <DetalleModal cancha={canchaModal} onClose={() => setCanchaModal(null)} />
-
         <CalendarioReserva 
           cancha={canchaAReservar}
           onClose={() => setCanchaAReservar(null)}
